@@ -1,21 +1,10 @@
-var ADD_REPOSITORY = 'ADD_REPOSITORY';
-var addRepository = function(repository) {
+var ADD_ITEM = 'ADD_ITEM';
+var addItem = function(item) {
 	return {
-		type: ADD_REPOSITORY,
-		repository: repository
+		type: ADD_ITEM,
+		item: item
 	};
 };
 
-var RATE_REPOSITORY = 'RATE_REPOSITORY';
-var rateRepository = function(repository, rating) {
-	return {
-		type: RATE_REPOSITORY,
-		repository: repository,
-		rating: rating
-	};
-};
-
-exports.ADD_REPOSITORY = ADD_REPOSITORY;
-exports.addRepository = addRepository;
-exports.RATE_REPOSITORY = RATE_REPOSITORY;
-exports.rateRepository = rateRepository;
+exports.ADD_ITEM = ADD_ITEM;
+exports.addItem = addItem;
