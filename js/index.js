@@ -1,14 +1,17 @@
-import "babel-polyfill";
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { store } from "./store.js";
-import { router } from "./router.js";
+require('babel-polyfill');
 
-// render the main component
-ReactDOM.render(
-  <Provider store={store}>
-    {router}
-  </Provider>,
-  document.getElementById('app')
-);
+var React = require('react');
+var ReactDOM = require('react-dom');
+var Provider = require('react-redux').Provider;
+
+var store = require('./store');
+var RepositoryList = require('./components/repository-list');
+
+document.addEventListener('DOMContentLoaded', function() {
+    ReactDOM.render(
+    	<Provider store={store}>
+    		<RepositoryList />
+    	</Provider>,
+    	document.getElementById('app')
+    );
+});
