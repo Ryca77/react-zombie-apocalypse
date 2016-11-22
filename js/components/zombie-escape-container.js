@@ -7,7 +7,7 @@ var actions = require('../actions/index');
 var ZombieEscapeContainer = React.createClass({
     getInitialState: function() {
         return {
-            items: ''
+            items: []
         }
     },
 
@@ -15,7 +15,9 @@ var ZombieEscapeContainer = React.createClass({
         event.preventDefault();
         var item = this.refs.itemName.value;
         console.log(item);
+        this.setState({items: item});
         this.props.dispatch(actions.addItem(item));
+        console.log(this.state.items);
     },
 
     render: function() {
@@ -37,8 +39,7 @@ var ZombieEscapeContainer = React.createClass({
                 </select>
                 &nbsp;
                 <button type="button" onClick={this.addItem}>Add</button>
-                <br></br>
-                <Items className="items" />
+                <Items className="items" items={this.state.items} />
                 <br></br>
                 <button type="button">Start Moving!</button>
             </div>
