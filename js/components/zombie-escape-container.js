@@ -1,6 +1,7 @@
 var React = require('react');
 var connect = require('react-redux').connect;
 
+var SurvivalMap = require('./survival-map');
 var UserLocation = require('./user-location');
 var Items = require('./items');
 var actions = require('../actions/index');
@@ -50,7 +51,7 @@ var ZombieEscapeContainer = React.createClass({
                 <br></br>
                 <button type="button">Start Moving!</button>
                 <br></br>
-                <div className="map" id="map">Map</div> //this needs to be it's own component with generateMap action
+                <SurvivalMap className="map" id="map" /> //this needs to be it's own component with generateMap action
             </div>
         );
     }
