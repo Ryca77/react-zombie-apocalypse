@@ -13,9 +13,22 @@ var SurvivalMap = React.createClass({
 		});
 	},
 
+	/*componentDidUpdate: function() {
+		var latitude = props.location.lat;
+    	var longitude = props.location.lng;
+    	var userLocation = {lat: latitude, lng: longitude};
+    	console.log(userLocation);
+    	var map = document.getElementById('map');
+		var marker = new google.maps.Marker({
+    		position: userLocation,
+    		map: map,
+    		title: 'Your Location!'
+    	});
+	},*/
+
 	render: function() {
 		return (
-			<div className="survival-map" id="map">MAP</div>
+			<div className="survival-map" id="map">Location Error: Reload quickly, the Zombies are coming!</div>
 		);
 	}
 });
