@@ -9,13 +9,32 @@ var actions = require('../actions/index');
 var ZombieEscapeContainer = React.createClass({
     getInitialState: function() {
         return {
+            location: {},
             items: []
         }
     },
 
     addUserLocation: function(event) {
         event.preventDefault();
-        this.props.dispatch(actions.addUserLocation());
+        
+
+        navigator.geolocation.getCurrentPosition(locationSuccess)
+        
+        
+
+        function locationSuccess(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var userLocation = {lat: latitude, lng: longitude};
+            console.log(latitude);
+            console.log(longitude);
+        };
+        console.log(userLocation);
+
+
+        this.setState({location: userLocation});
+        console.log(this.state.location);
+        this.props.dispatch(actions.addUserLocation(this.state.location));
     },
 
     addItem: function(event) {
@@ -32,7 +51,7 @@ var ZombieEscapeContainer = React.createClass({
             <div className="escape-container">
                 <h3>Where are you?</h3>
                 <button type="button" onClick={this.addUserLocation}>Get My Location</button>
-                <UserLocation className="user-location" />
+                <UserLocation className="user-location" location={this.state.location} />
                 <br></br>
                 <h3>Do you have any of these immediately available?</h3>
                 <select type="text" className="dropdown" ref="itemName">
@@ -51,7 +70,7 @@ var ZombieEscapeContainer = React.createClass({
                 <br></br>
                 <button type="button">Start Moving!</button>
                 <br></br>
-                <SurvivalMap className="map" id="map" /> //this needs to be it's own component with generateMap action
+                <SurvivalMap className="map" />
             </div>
         );
     }

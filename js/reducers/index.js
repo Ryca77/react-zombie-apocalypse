@@ -6,7 +6,12 @@ var initialItemsState = {
 
 var escapeReducer = function(state, action) {
     state = state || initialItemsState;
-    if(action.type === actions.ADD_ITEM) {
+    if(action.type === actions.ADD_USER_LOCATION) {
+        console.log(action);
+    }
+
+
+    else if(action.type === actions.ADD_ITEM) {
         console.log(action);
         var userItems = state.items;
         userItems.push(action.item);
@@ -14,6 +19,9 @@ var escapeReducer = function(state, action) {
         console.log(state.items);
         return Object.assign({}, state, {items: userItems});
     }
+
+
+
     return state;
 }
 

@@ -8,14 +8,14 @@ var SurvivalMap = React.createClass({
 
 	generateMap: function() {
 		var mapImage = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: 0, lng: 0},
-			zoom: 25
+			center: {lat: 54.559322, lng: -2.5},
+			zoom: 6
 		});
 	},
 
 	render: function() {
 		return (
-			<div className="survival-map">MAP</div>
+			<div className="survival-map" id="map">MAP</div>
 		);
 	}
 });

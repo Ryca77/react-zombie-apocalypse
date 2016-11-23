@@ -7,13 +7,29 @@
 //if outcome is failure, show total survival time and point at which overcome by infection
 
 //add user location to map
-var addUserLocation = function() {
-	navigator.geolocation.getCurrentPosition(locationSuccess, locationError)
-	//code for location success and error
+var ADD_USER_LOCATION = 'ADD_USER_LOCATION';
+var addUserLocation = function(location) {
+	console.log(location);
+	/*navigator.geolocation.getCurrentPosition(locationSuccess)
+	
+	function locationSuccess(position) {		
+		var latitude = position.coords.latitude;
+		var longitude = position.coords.longitude;
+		var userLocation = {lat: latitude, lng: longitude};
+		console.log(latitude);
+		console.log(longitude);
+
+		var map = document.getElementById('map');
+		var marker = new google.maps.Marker({
+    		position: userLocation,
+    		map: map,
+    		title: 'Your Location!'
+    	});
+	}*/
 
 	return {
 		type: ADD_USER_LOCATION,
-		marker: 'x'
+		location: location
 	};
 };
 
@@ -29,4 +45,5 @@ var addItem = function(item) {
 exports.ADD_ITEM = ADD_ITEM;
 exports.addItem = addItem;
 
+exports.ADD_USER_LOCATION = ADD_USER_LOCATION;
 exports.addUserLocation = addUserLocation;
