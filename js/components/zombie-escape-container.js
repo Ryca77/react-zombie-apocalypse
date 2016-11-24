@@ -14,8 +14,7 @@ var ZombieEscapeContainer = React.createClass({
         }
     },
 
-    addUserLocation: function(event) {
-        event.preventDefault();
+    componentDidMount: function() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
             var latitude = position.coords.latitude;
@@ -23,9 +22,14 @@ var ZombieEscapeContainer = React.createClass({
             var userCoords = {lat: latitude, lng: longitude};
             console.log(userCoords);
             this.setState({userCoords: userCoords});
-            this.props.dispatch(actions.getLocation(userCoords));
-            this.props.dispatch(actions.addUserMarker(userCoords));
         });
+    },
+
+    addUserLocation: function(event) {
+        event.preventDefault();
+        var userCoords = this.state.userCoords;
+        this.props.dispatch(actions.getLocation(userCoords));
+        this.props.dispatch(actions.addUserMarker(userCoords));        
     },
 
     addItem: function(event) {
@@ -58,9 +62,7 @@ var ZombieEscapeContainer = React.createClass({
                 <button type="button" onClick={this.addItem}>Add</button>
                 <Items className="items" items={this.state.items} />
                 <br></br>
-                <button type="button">Start Moving!</button>
-                <br></br>
-                <SurvivalMap className="survival-map" />
+                <SurvivalMap className="survival-map" markers={this.userCoords} />
             </div>
         );
     }

@@ -5,9 +5,6 @@ var actions = require('../actions/index');
 
 //show user location name
 var UserLocation = function(props) {
-	/*var latitude = props.location.lat;
-    var longitude = props.location.lng;
-    var userCoords = {lat: latitude, lng: longitude};*/
     var userLocation = props.userLocation;
     console.log(props);
 
