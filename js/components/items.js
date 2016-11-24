@@ -29,7 +29,7 @@ var Items = function(props) {
 
 var mapStateToProps = function(state, props) {
 	return {
-		items: state.items,
+		items: state.items
 	};
 };
 

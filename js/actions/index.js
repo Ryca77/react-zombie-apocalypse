@@ -8,10 +8,9 @@
 
 var fetch = require('isomorphic-fetch');
 
-//add user location to map
+//add user location name
 var ADD_USER_LOCATION = 'ADD_USER_LOCATION';
 var addUserLocation = function(location) {
-	console.log(location);
 	return {
 		type: ADD_USER_LOCATION,
 		location: location
@@ -45,6 +44,15 @@ var getLocation = function(location) {
 	}
 };
 
+//add user marker to map
+var ADD_USER_MARKER = 'ADD_USER_MARKER';
+var addUserMarker = function(coords) {
+	return {
+		type: ADD_USER_MARKER,
+		coords: coords
+	};
+};
+
 //add items to list
 var ADD_ITEM = 'ADD_ITEM';
 var addItem = function(item) {
@@ -60,3 +68,5 @@ exports.addItem = addItem;
 exports.ADD_USER_LOCATION = ADD_USER_LOCATION;
 exports.addUserLocation = addUserLocation;
 exports.getLocation = getLocation;
+exports.ADD_USER_MARKER = ADD_USER_MARKER;
+exports.addUserMarker = addUserMarker;

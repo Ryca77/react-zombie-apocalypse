@@ -1,8 +1,8 @@
 var actions = require('../actions/index');
 
 var initialItemsState = {
-    userTown: '',
-    userLocation: {},
+    userLocation: '',
+    userCoords: {},
     items: []
 };
 
@@ -10,16 +10,20 @@ var escapeReducer = function(state, action) {
     state = state || initialItemsState;
     if(action.type === actions.ADD_USER_LOCATION) {
         console.log(action);
-        userTown = action.location;
-        return Object.assign({}, state, {userTown: userTown});
+        var userLocation = action.location;
+        return Object.assign({}, state, {userLocation: userLocation});
+    }
+
+    else if(action.type === actions.ADD_USER_MARKER) {
+        console.log(action);
+        var userCoords = action.coords;
+        return Object.assign({}, state, {userCoords: userCoords});
     }
 
     else if(action.type === actions.ADD_ITEM) {
         console.log(action);
         var userItems = state.items;
         userItems.push(action.item);
-        console.log(userItems);
-        console.log(state.items);
         return Object.assign({}, state, {items: userItems});
     }
 

@@ -9,22 +9,22 @@ var actions = require('../actions/index');
 var ZombieEscapeContainer = React.createClass({
     getInitialState: function() {
         return {
-            userLocation: {},
+            userCoords: {},
             items: []
         }
     },
 
     addUserLocation: function(event) {
         event.preventDefault();
-
         navigator.geolocation.getCurrentPosition(
             (position) => {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
-            var userLocation = {lat: latitude, lng: longitude};
-            console.log(userLocation);
-            this.setState({userLocation: userLocation});
-            this.props.dispatch(actions.getLocation(userLocation));
+            var userCoords = {lat: latitude, lng: longitude};
+            console.log(userCoords);
+            this.setState({userCoords: userCoords});
+            this.props.dispatch(actions.getLocation(userCoords));
+            this.props.dispatch(actions.addUserMarker(userCoords));
         });
     },
 
@@ -42,8 +42,7 @@ var ZombieEscapeContainer = React.createClass({
             <div className="escape-container">
                 <h3>Where are you?</h3>
                 <button type="button" onClick={this.addUserLocation}>Get My Location</button>
-                <UserLocation className="user-location" location={this.state.userLocation} />
-                <br></br>
+                <UserLocation className="user-location" location={this.state.userCoords} />
                 <h3>Do you have any of these immediately available?</h3>
                 <select type="text" className="dropdown" ref="itemName">
                     <option value="Car">Car</option>
@@ -61,17 +60,11 @@ var ZombieEscapeContainer = React.createClass({
                 <br></br>
                 <button type="button">Start Moving!</button>
                 <br></br>
-                <SurvivalMap className="map" location={this.state.location} />
+                <SurvivalMap className="survival-map" />
             </div>
         );
     }
 });
-
-/*var mapStateToProps = function(state, props) {
-    return {
-        items: state.items
-    };
-};*/
 
 var Container = connect()(ZombieEscapeContainer);
 
