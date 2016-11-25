@@ -22,11 +22,13 @@ var SurvivalMap = React.createClass({
             var userCoords = {lat: latitude, lng: longitude};
             this.setState({userCoords: userCoords});
         });
-        //random latitude  51.2 to 54
-    	var randomLat = (Math.random()*(54 - 51.2) + 51.2.toFixed() * 1);
+        //random latitudes  51.2 to 54
+    	var randomLat = (Math.random()*(57.468 - 54.965) + 54.965.toFixed() * 1);
+
+    	
     	console.log(randomLat);
-        //random longitude -0.1 to 2.2
-        var randomLng = (Math.random()*(-0.1 - -2.2) + -2.2.toFixed() * 1);
+        //random longituded -0.1 to 2.2
+        var randomLng = (Math.random()*(-3.054 - -4.681) + -4.681.toFixed() * 1);
         console.log(randomLng);
         var infectionCoords = {lat: randomLat, lng: randomLng};
         this.setState({infectionCoords: infectionCoords});
@@ -39,17 +41,18 @@ var SurvivalMap = React.createClass({
 			center: {lat: 54.559322, lng: -2.5},
 			zoom: 6
 		});
-		var userIcon = {url: './infection-icon-30px.png'};
+		var userIcon = '';
 		var userMarker = new google.maps.Marker({
     		position: userCoords,
    			map: this.mapImage,
-   			title: 'Your Location!',
-   			icon: userIcon
+   			title: 'Your Location!'
    		});
+   		var infectionIcon = '/assets/images/infection-icon-30px.png'
    		var infectionMarker = new google.maps.Marker({
    			position: infectionCoords,
    			map: this.mapImage,
-   			title: 'Infection Breakout Point'
+   			title: 'Infection Breakout Point',
+   			icon: infectionIcon
    		})
 	},
 
