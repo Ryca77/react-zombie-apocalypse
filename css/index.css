@@ -11,3 +11,10 @@
 .start-moving {
 	margin-bottom: 10px;
 }
+
+#markerLayer img {
+  animation: pulse .5s infinite alternate;
+  -webkit-animation: pulse .5s infinite alternate;
+  transform-origin: center;
+  -webkit-transform-origin: center;
+}
