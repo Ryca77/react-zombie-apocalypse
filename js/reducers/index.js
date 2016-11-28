@@ -5,6 +5,7 @@ var initialItemsState = {
     userCoords: {},
     infectionCoords: {},
     safePlaceCoords: [],
+    userJourneyTime: '',
     items: []
 };
 
@@ -15,12 +16,6 @@ var escapeReducer = function(state, action) {
         var userLocation = action.location;
         return Object.assign({}, state, {userLocation: userLocation});
     }
-
-    /*else if(action.type === actions.ADD_USER_MARKER) {
-        console.log(action);
-        var userCoords = action.coords;
-        return Object.assign({}, state, {userCoords: userCoords});
-    }*/
 
     else if(action.type === actions.ADD_ITEM) {
         console.log(action);
@@ -34,7 +29,12 @@ var escapeReducer = function(state, action) {
         var userCoords = action.user;
         var infectionCoords = action.infection;
         var safePlaceCoords = action.safe;
-        return Object.assign({}, state, {userCoords: userCoords}, {infectionCoords: infectionCoords}, {safePlaceCoords: safePlaceCoords})
+        return Object.assign({}, state, {userCoords: userCoords}, {infectionCoords: infectionCoords}, {safePlaceCoords: safePlaceCoords});
+    }
+    else if(action.type === actions.ADD_USER_JOURNEY_TIME) {
+        console.log(action);
+        var userJourneyTime = action.time;
+        return Object.assign({}, state, {userJourneyTime: userJourneyTime});
     }
 
     return state;

@@ -72,6 +72,14 @@ var addEscapeData = function(user, infection, safe) {
 	};
 };
 
+var ADD_USER_JOURNEY_TIME = 'ADD_USER_JOURNEY_TIME';
+var addUserJourneyTime = function(time) {
+	return {
+		type:ADD_USER_JOURNEY_TIME,
+		userJourneyTime: time
+	};
+};
+
 var getUserJourney = function(user, safe, items) {
 	return function(dispatch) {
 		var userLat = user.lat;
@@ -124,10 +132,9 @@ var getUserJourney = function(user, safe, items) {
         console.log(nearestSafeLat);
         console.log(nearestSafeLng);
 
-
         var itemsArr = items;
 
-		var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyBOvMQKAtB336uW1OUdCgtPeay9VPmYsaE';
+		var url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' + userLat + ',' + userLng + '&destination=' + nearestSafeLat + ',' + nearestSafeLng + '&key=AIzaSyDdHxoeOWJXsBwBVFAXLuSh3RIg3mfli7o';
 		return fetch(url)
 		.then(function(response) {
             if (response.status < 200 || response.status >= 300) {
@@ -141,13 +148,9 @@ var getUserJourney = function(user, safe, items) {
             return response.json();
         })
         .then(function(data) {
-            var town = data.results[1].formatted_address;
-
-
-
-
-
-            return dispatch(addEscapeOutcome());
+            console.log(data);
+            console.log(data.routes[0].legs[1].value)
+            return dispatch(addUserJourneyTime());
         })
         .catch(function() {
         	console.log('error');
@@ -163,10 +166,11 @@ exports.addItem = addItem;
 exports.ADD_USER_LOCATION = ADD_USER_LOCATION;
 exports.addUserLocation = addUserLocation;
 exports.getLocation = getLocation;
-//exports.ADD_USER_MARKER = ADD_USER_MARKER;
-//exports.addUserMarker = addUserMarker;
 
 exports.ADD_ESCAPE_Data = ADD_ESCAPE_DATA;
 exports.addEscapeData = addEscapeData;
+
+exports.ADD_USER_JOURNEY_TIME = ADD_USER_JOURNEY_TIME;
+exports.addUserJourneyTime = addUserJourneyTime;
 
 exports.getUserJourney = getUserJourney;
