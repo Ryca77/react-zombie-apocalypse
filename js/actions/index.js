@@ -45,13 +45,13 @@ var getLocation = function(location) {
 };
 
 //add user marker to map
-var ADD_USER_MARKER = 'ADD_USER_MARKER';
+/*var ADD_USER_MARKER = 'ADD_USER_MARKER';
 var addUserMarker = function(coords) {
 	return {
 		type: ADD_USER_MARKER,
 		coords: coords
 	};
-};
+};*/
 
 //add items to list
 var ADD_ITEM = 'ADD_ITEM';
@@ -62,11 +62,111 @@ var addItem = function(item) {
 	};
 };
 
+var ADD_ESCAPE_DATA = 'ADD_ESCAPE_DATA';
+var addEscapeData = function(user, infection, safe) {
+	return {
+		type:ADD_ESCAPE_DATA,
+		userCoords: user,
+		infectionCoords: infection,
+		safePlaceCoords: safe
+	};
+};
+
+var getUserJourney = function(user, safe, items) {
+	return function(dispatch) {
+		var userLat = user.lat;
+		var userLng = user.lng;
+		var safePlaceCoords = safe;
+
+        var nearestSafeLat = null;
+        var diffLat = Math.abs(userLat - safePlaceCoords[0].lat)
+        for(var i = 0; i < safePlaceCoords.length; i++) {
+        	var newNearest = Math.abs(userLat - safePlaceCoords[i].lat);
+        	if(newNearest < diffLat) {
+        		diffLat = newNearest;
+        		nearestSafeLat = safePlaceCoords[i].lat;
+        	}
+        }
+        console.log(nearestSafeLat);
+        console.log(diffLat);
+
+        var nearestSafeLng = null;
+        var diffLng = Math.abs(userLng - safePlaceCoords[0].lng)
+        for(var i = 0; i < safePlaceCoords.length; i++) {
+        	var newNearest = Math.abs(userLng - safePlaceCoords[i].lng);
+        	if(newNearest < diffLng) {
+        		diffLng = newNearest;
+        		nearestSafeLng = safePlaceCoords[i].lng;
+        	}
+        }
+        console.log(nearestSafeLng);
+        console.log(diffLng);
+
+        var absoluteNearest = null;
+        if(diffLat < diffLng) {
+        	absoluteNearest = diffLat;
+        }
+        else {
+        	absoluteNearest = diffLng;
+        }
+
+        for(var i = 0; i < safePlaceCoords.length; i++) {
+        	if(absoluteNearest == safePlaceCoords[i].lat) {
+        		nearestSafeLat = safePlaceCoords[i].lat;
+        		nearestSafeLng = safePlaceCoords[i].lng;
+        	}
+        	else if(absoluteNearest == safePlaceCoords[i].lng) {
+        		nearestSafeLat = safePlaceCoords[i].lat;
+        		nearestSafeLng = safePlaceCoords[i].lng;
+        	}
+        }
+
+        console.log(nearestSafeLat);
+        console.log(nearestSafeLng);
+
+
+        var itemsArr = items;
+
+		var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyBOvMQKAtB336uW1OUdCgtPeay9VPmYsaE';
+		return fetch(url)
+		.then(function(response) {
+            if (response.status < 200 || response.status >= 300) {
+                var error = new Error(response.statusText)
+                error.response = response
+                throw error;
+            }
+            return response;
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            var town = data.results[1].formatted_address;
+
+
+
+
+
+            return dispatch(addEscapeOutcome());
+        })
+        .catch(function() {
+        	console.log('error');
+        });
+	}
+
+
+}
+
 exports.ADD_ITEM = ADD_ITEM;
 exports.addItem = addItem;
 
 exports.ADD_USER_LOCATION = ADD_USER_LOCATION;
 exports.addUserLocation = addUserLocation;
 exports.getLocation = getLocation;
-exports.ADD_USER_MARKER = ADD_USER_MARKER;
-exports.addUserMarker = addUserMarker;
+//exports.ADD_USER_MARKER = ADD_USER_MARKER;
+//exports.addUserMarker = addUserMarker;
+
+exports.ADD_ESCAPE_Data = ADD_ESCAPE_DATA;
+exports.addEscapeData = addEscapeData;
+
+exports.getUserJourney = getUserJourney;

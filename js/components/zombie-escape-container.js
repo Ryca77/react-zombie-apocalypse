@@ -28,8 +28,7 @@ var ZombieEscapeContainer = React.createClass({
     addUserLocation: function(event) {
         event.preventDefault();
         var userCoords = this.state.userCoords;
-        this.props.dispatch(actions.getLocation(userCoords));
-        this.props.dispatch(actions.addUserMarker(userCoords));        
+        this.props.dispatch(actions.getLocation(userCoords));    
     },
 
     addItem: function(event) {
@@ -38,7 +37,6 @@ var ZombieEscapeContainer = React.createClass({
         console.log(item);
         this.setState({items: item});
         this.props.dispatch(actions.addItem(item));
-        console.log(this.state.items);
     },
 
     render: function() {
@@ -62,7 +60,7 @@ var ZombieEscapeContainer = React.createClass({
                 <button type="button" onClick={this.addItem}>Add</button>
                 <Items className="items" items={this.state.items} />
                 <br></br>
-                <SurvivalMap className="survival-map" markers={this.userCoords} />
+                <SurvivalMap className="survival-map" items={this.state.items} />
             </div>
         );
     }

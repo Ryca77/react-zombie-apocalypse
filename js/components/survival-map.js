@@ -1,7 +1,11 @@
 var React = require('react');
 var connect = require('react-redux').connect;
 
-var SurvivalMap = React.createClass({		
+var EscapeOutcome = require('./escape-outcome');
+var actions = require('../actions/index');
+var store = require('../store');
+
+var SurvivalMap = React.createClass({
 	getInitialState: function() {
         return {
             userCoords: {},
@@ -78,13 +82,25 @@ var SurvivalMap = React.createClass({
    		};
 	},
 
+	addEscapeOutcome: function(event) {
+		event.preventDefault();
+		var userCoords = this.state.userCoords;
+		var infectionCoords = this.state.infectionCoords;
+		var safePlaceCoords = this.state.safePlaceCoords;
+		var userItems = (store.getState().items);
+		this.props.dispatch(actions.addEscapeData(userCoords, infectionCoords, safePlaceCoords));
+		this.props.dispatch(actions.getUserJourney(userCoords, safePlaceCoords, userItems));
+		this.props.dispatch(actions.getZombieJourney(infectionCoords, safePlaceCoords));
+	},
+
 	render: function() {
 		return (
 			<div>
-				<button type="button" className="start-moving">Start Moving!</button>
+				<button type="button" className="start-moving" onClick={this.addEscapeOutcome}>Start Moving!</button>
             	<br></br>
             	<button type="button" className="load-map" onClick={this.generateMap}>Load Map</button>
 				<div className="map" id="map"></div>
+				<EscapeOutcome className="escape-outcome" userCoords={this.state.userCoords} infectionCoords={this.state.infectionCoords} safePlaceCoords={this.state.safePlaceCoords} />
 			</div>
 		);
 	}
