@@ -93,7 +93,7 @@ var SurvivalMap = React.createClass({
 		var userItems = (store.getState().items);
 		this.props.dispatch(actions.addEscapeData(userCoords, infectionCoords, safePlaceCoords));
 		this.props.dispatch(actions.getUserJourney(userCoords, nearestSafePlace, userItems));
-		this.props.dispatch(actions.getZombieJourney(infectionCoords, safePlaceCoords));
+		this.props.dispatch(actions.getZombieJourney(infectionCoords, nearestSafePlace));
 	},
 
 	render: function() {

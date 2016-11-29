@@ -131,7 +131,6 @@ var getNearestSafePlace = function(user, safe) {
 
 var ADD_USER_JOURNEY_TIME = 'ADD_USER_JOURNEY_TIME';
 var addUserJourneyTime = function(time) {
-	console.log(time);
 	return {
 		type: ADD_USER_JOURNEY_TIME,
 		userJourneyTime: time
@@ -158,6 +157,14 @@ var getUserJourney = function(user, safe, items) {
         		if(status === 'OK') {
         			console.log(response.routes[0].legs[0].duration.value);
         			var time = (response.routes[0].legs[0].duration.value);
+        			console.log(mode);
+        			//user walking time reduced to account for running, and driving time increased to account for traffic
+        			if(mode == 'WALKING') {
+        				time = time * 0.5
+        			}
+        			else if(mode == 'DRIVING') {
+        				time = time * 2
+        			}
         			return dispatch(addUserJourneyTime(time));
         		} else {
         			window.alert('Directions request failed due to ' + status);
@@ -198,18 +205,40 @@ var addZombieJourneyTime = function(time) {
 	console.log(time);
 	return {
 		type: ADD_ZOMBIE_JOURNEY_TIME,
-		userJourneyTime: time
+		zombieJourneyTime: time
 	};
 };
 
 var getZombieJourney = function(infection, safe) {
 	return function(dispatch) {
 		var infectionLat = infection.lat;
-		var infectionLng = infection.lng;
-		var safePlaceCoords = safe;
+		var infectionLng = infection.lng;		
+		var nearestSafeLat = safe.lat;
+		var nearestSafeLng = safe.lng;
+
+        //get travel time using origin and destination latlng objects and travel mode from items
+        var origin = {lat: infectionLat, lng: infectionLng};
+        var destination = {lat: nearestSafeLat, lng: nearestSafeLng};
+        var directionsService = new google.maps.DirectionsService;
+        var getRouteData = function() {
+        	directionsService.route({
+        		origin: origin,
+        		destination: destination,
+        		travelMode: 'DRIVING'
+        	}, function(response, status) {
+        		if(status === 'OK') {
+        			console.log(response.routes[0].legs[0].duration.value);
+        			var time = (response.routes[0].legs[0].duration.value);
+        			//zombie travel time set at half driving time
+        			return dispatch(addZombieJourneyTime(time * 2));
+        		} else {
+        			window.alert('Directions request failed due to ' + status);
+        		}
+        	});
+        };
+        getRouteData();
 	};
 };
-
 
 exports.ADD_ITEM = ADD_ITEM;
 exports.addItem = addItem;
