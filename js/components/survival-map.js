@@ -49,9 +49,11 @@ var SurvivalMap = React.createClass({
 	},
 
 	generateMap: function() {
+		console.log(this.state.userCoords)
 		var userCoords = this.state.userCoords;
 		var infectionCoords = this.state.infectionCoords;
 		var safePlaceCoords = this.state.safePlaceCoords;
+		this.props.dispatch(actions.getNearestSafePlace(userCoords, safePlaceCoords));
 		this.mapImage = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 54.559322, lng: -2.5},
 			zoom: 6
@@ -87,10 +89,11 @@ var SurvivalMap = React.createClass({
 		var userCoords = this.state.userCoords;
 		var infectionCoords = this.state.infectionCoords;
 		var safePlaceCoords = this.state.safePlaceCoords;
+		var nearestSafePlace = (store.getState().nearestSafePlace);
 		var userItems = (store.getState().items);
 		this.props.dispatch(actions.addEscapeData(userCoords, infectionCoords, safePlaceCoords));
-		this.props.dispatch(actions.getUserJourney(userCoords, safePlaceCoords, userItems));
-		//this.props.dispatch(actions.getZombieJourney(infectionCoords, safePlaceCoords));
+		this.props.dispatch(actions.getUserJourney(userCoords, nearestSafePlace, userItems));
+		this.props.dispatch(actions.getZombieJourney(infectionCoords, safePlaceCoords));
 	},
 
 	render: function() {

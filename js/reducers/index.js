@@ -5,7 +5,9 @@ var initialItemsState = {
     userCoords: {},
     infectionCoords: {},
     safePlaceCoords: [],
+    nearestSafePlace: {},
     userJourneyTime: '',
+    zombieJourneyTime: '',
     items: []
 };
 
@@ -31,6 +33,13 @@ var escapeReducer = function(state, action) {
         var safePlaceCoords = action.safe;
         return Object.assign({}, state, {userCoords: userCoords}, {infectionCoords: infectionCoords}, {safePlaceCoords: safePlaceCoords});
     }
+
+    else if(action.type === actions.ADD_NEAREST_SAFE_PLACE) {
+        console.log(action);
+        var nearestSafePlace = action.nearestSafePlace;
+        return Object.assign({}, state, {nearestSafePlace: nearestSafePlace});
+    }
+
     else if(action.type === actions.ADD_USER_JOURNEY_TIME) {
         console.log(action);
         var userJourneyTime = action.time;

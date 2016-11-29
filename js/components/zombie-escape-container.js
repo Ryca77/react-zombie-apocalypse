@@ -48,6 +48,7 @@ var ZombieEscapeContainer = React.createClass({
                 <h3>Do you have any of these immediately available?</h3>
                 <select type="text" className="dropdown" ref="itemName">
                     <option value="Car">Car</option>
+                    <option value="Bicycle">Bicycle</option>
                     <option value="Smartphone">Smartphone</option>
                     <option value="Radio">Radio</option>
                     <option value="Map">Map</option>

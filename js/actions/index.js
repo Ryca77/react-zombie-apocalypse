@@ -44,15 +44,6 @@ var getLocation = function(location) {
 	}
 };
 
-//add user marker to map
-/*var ADD_USER_MARKER = 'ADD_USER_MARKER';
-var addUserMarker = function(coords) {
-	return {
-		type: ADD_USER_MARKER,
-		coords: coords
-	};
-};*/
-
 //add items to list
 var ADD_ITEM = 'ADD_ITEM';
 var addItem = function(item) {
@@ -65,27 +56,29 @@ var addItem = function(item) {
 var ADD_ESCAPE_DATA = 'ADD_ESCAPE_DATA';
 var addEscapeData = function(user, infection, safe) {
 	return {
-		type:ADD_ESCAPE_DATA,
+		type: ADD_ESCAPE_DATA,
 		userCoords: user,
 		infectionCoords: infection,
 		safePlaceCoords: safe
 	};
 };
 
-var ADD_USER_JOURNEY_TIME = 'ADD_USER_JOURNEY_TIME';
-var addUserJourneyTime = function(time) {
+var ADD_NEAREST_SAFE_PLACE = 'ADD_NEAREST_SAFE_PLACE';
+var addNearestSafePlace = function(coords) {
+	console.log(coords);
 	return {
-		type:ADD_USER_JOURNEY_TIME,
-		userJourneyTime: time
+		type: ADD_NEAREST_SAFE_PLACE,
+		nearestSafePlace: coords
 	};
 };
 
-var getUserJourney = function(user, safe, items) {
+var getNearestSafePlace = function(user, safe) {
 	return function(dispatch) {
 		var userLat = user.lat;
 		var userLng = user.lng;
 		var safePlaceCoords = safe;
 
+		//calculate nearest safe place lat to user location
         var nearestSafeLat = null;
         var diffLat = Math.abs(userLat - safePlaceCoords[0].lat)
         for(var i = 0; i < safePlaceCoords.length; i++) {
@@ -98,6 +91,7 @@ var getUserJourney = function(user, safe, items) {
         console.log(nearestSafeLat);
         console.log(diffLat);
 
+        //calculate nearest safe place lng to user location
         var nearestSafeLng = null;
         var diffLng = Math.abs(userLng - safePlaceCoords[0].lng)
         for(var i = 0; i < safePlaceCoords.length; i++) {
@@ -110,6 +104,7 @@ var getUserJourney = function(user, safe, items) {
         console.log(nearestSafeLng);
         console.log(diffLng);
 
+        //determine absolute nearest safe place using smallest difference in lat or lng
         var absoluteNearest = null;
         if(diffLat < diffLng) {
         	absoluteNearest = diffLat;
@@ -117,7 +112,6 @@ var getUserJourney = function(user, safe, items) {
         else {
         	absoluteNearest = diffLng;
         }
-
         for(var i = 0; i < safePlaceCoords.length; i++) {
         	if(absoluteNearest == safePlaceCoords[i].lat) {
         		nearestSafeLat = safePlaceCoords[i].lat;
@@ -128,37 +122,94 @@ var getUserJourney = function(user, safe, items) {
         		nearestSafeLng = safePlaceCoords[i].lng;
         	}
         }
-
         console.log(nearestSafeLat);
         console.log(nearestSafeLng);
+        var nearestSafePlace = {lat: nearestSafeLat, lng: nearestSafeLng};
+        return dispatch(addNearestSafePlace(nearestSafePlace));
+	};
+};
 
+var ADD_USER_JOURNEY_TIME = 'ADD_USER_JOURNEY_TIME';
+var addUserJourneyTime = function(time) {
+	console.log(time);
+	return {
+		type: ADD_USER_JOURNEY_TIME,
+		userJourneyTime: time
+	};
+};
+
+var getUserJourney = function(user, safe, items) {
+	return function(dispatch) {
+		var userLat = user.lat;
+		var userLng = user.lng;
+		var nearestSafeLat = safe.lat;
+		var nearestSafeLng = safe.lng;
+
+        //get travel time using origin and destination latlng objects and travel mode from items
+        var origin = {lat: userLat, lng: userLng};
+        var destination = {lat: nearestSafeLat, lng: nearestSafeLng};
+        var directionsService = new google.maps.DirectionsService;
+        var getRouteData = function(mode) {
+        	directionsService.route({
+        		origin: origin,
+        		destination: destination,
+        		travelMode: mode
+        	}, function(response, status) {
+        		if(status === 'OK') {
+        			console.log(response.routes[0].legs[0].duration.value);
+        			var time = (response.routes[0].legs[0].duration.value);
+        			return dispatch(addUserJourneyTime(time));
+        		} else {
+        			window.alert('Directions request failed due to ' + status);
+        		}
+        	});
+        };
+
+        //check for transport options in items array and call directions api function with applicable travel mode
         var itemsArr = items;
+        var setTravelMode = function() {
+        	var travelMode = null;
+        	var car = false;
+        	var bicycle = false;
+        	for(var i = 0; i < itemsArr.length; i++) {
+        		if(itemsArr[i] == 'Car') {
+        			car = true;
+        			travelMode = 'DRIVING';
+        		}
+        		else if(itemsArr[i] == 'Bicycle') {
+        			bicycle = true;
+        			travelMode = 'BICYCLING';
+        		}
+        	};
+        	if(car === true && bicycle === true) {
+        		travelMode = 'DRIVING';
+        	}
+        	else if(car === false && bicycle === false) {
+        		travelMode = 'WALKING';
+        	}
+        	getRouteData(travelMode);
+    	}
+        setTravelMode();
+	};
+};
 
-		var url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' + userLat + ',' + userLng + '&destination=' + nearestSafeLat + ',' + nearestSafeLng + '&key=AIzaSyDdHxoeOWJXsBwBVFAXLuSh3RIg3mfli7o';
-		return fetch(url)
-		.then(function(response) {
-            if (response.status < 200 || response.status >= 300) {
-                var error = new Error(response.statusText)
-                error.response = response
-                throw error;
-            }
-            return response;
-        })
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            console.log(data);
-            console.log(data.routes[0].legs[1].value)
-            return dispatch(addUserJourneyTime());
-        })
-        .catch(function() {
-        	console.log('error');
-        });
-	}
+var ADD_ZOMBIE_JOURNEY_TIME = 'ADD_ZOMBIE_JOURNEY_TIME';
+var addZombieJourneyTime = function(time) {
+	console.log(time);
+	return {
+		type: ADD_ZOMBIE_JOURNEY_TIME,
+		userJourneyTime: time
+	};
+};
 
+var getZombieJourney = function(infection, safe) {
+	return function(dispatch) {
+		var infectionLat = infection.lat;
+		var infectionLng = infection.lng;
+		var safePlaceCoords = safe;
+	};
+};
 
-}
 
 exports.ADD_ITEM = ADD_ITEM;
 exports.addItem = addItem;
@@ -167,10 +218,17 @@ exports.ADD_USER_LOCATION = ADD_USER_LOCATION;
 exports.addUserLocation = addUserLocation;
 exports.getLocation = getLocation;
 
-exports.ADD_ESCAPE_Data = ADD_ESCAPE_DATA;
+exports.ADD_ESCAPE_DATA = ADD_ESCAPE_DATA;
 exports.addEscapeData = addEscapeData;
+
+exports.ADD_NEAREST_SAFE_PLACE = ADD_NEAREST_SAFE_PLACE;
+exports.addNearestSafePlace = addNearestSafePlace;
+exports.getNearestSafePlace = getNearestSafePlace;
 
 exports.ADD_USER_JOURNEY_TIME = ADD_USER_JOURNEY_TIME;
 exports.addUserJourneyTime = addUserJourneyTime;
-
 exports.getUserJourney = getUserJourney;
+
+exports.ADD_ZOMBIE_JOURNEY_TIME = ADD_ZOMBIE_JOURNEY_TIME;
+exports.addZombieJourneyTime = addZombieJourneyTime;
+exports.getZombieJourney = getZombieJourney;
