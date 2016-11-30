@@ -54,10 +54,19 @@ var SurvivalMap = React.createClass({
 		var infectionCoords = this.state.infectionCoords;
 		var safePlaceCoords = this.state.safePlaceCoords;
 		this.props.dispatch(actions.getNearestSafePlace(userCoords, safePlaceCoords));
+		
+		var zoom = null;
+		if(window.innerWidth <= 500) {
+			zoom = 5;
+		}
+		else {
+			zoom = 6;
+		}
 		this.mapImage = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: 54.559322, lng: -2.5},
-			zoom: 6
-		});
+				center: {lat: 54.559322, lng: -2.5},
+				zoom: zoom
+  		});
+
 		var userIcon = '';
 		var userMarker = new google.maps.Marker({
     		position: userCoords,
@@ -98,7 +107,7 @@ var SurvivalMap = React.createClass({
 
 	render: function() {
 		return (
-			<div>
+			<div className="survival-map">
 				<button type="button" className="start-moving" onClick={this.addEscapeOutcome}>Start Moving!</button>
             	<br></br>
             	<button type="button" className="load-map" onClick={this.generateMap}>Load Map</button>

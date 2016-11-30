@@ -41,26 +41,34 @@ var ZombieEscapeContainer = React.createClass({
 
     render: function() {
         return (
-            <div className="escape-container">
-                <h3>Where are you?</h3>
-                <button type="button" onClick={this.addUserLocation}>Get My Location</button>
-                <UserLocation className="user-location" location={this.state.userCoords} />
-                <h3>Do you have any of these immediately available?</h3>
-                <select type="text" className="dropdown" ref="itemName">
-                    <option value="Car">Car</option>
-                    <option value="Bicycle">Bicycle</option>
-                    <option value="Smartphone">Smartphone</option>
-                    <option value="Radio">Radio</option>
-                    <option value="Map">Map</option>
-                    <option value="Bat">Bat</option>
-                    <option value="Water">Water</option>
-                    <option value="Food">Food</option>
-                    <option value="Sleeping Bag">Sleeping Bag</option>
-                </select>
-                &nbsp;
-                <button type="button" onClick={this.addItem}>Add</button>
-                <Items className="items" items={this.state.items} />
-                <br></br>
+            <div className="app">
+                <div className="escape-container">
+                    <h2 className="header">The zombies are coming - will you survive?</h2>
+                    <h3 className="where">Where are you?
+                        <button type="button" className="location" onClick={this.addUserLocation}>Get My Location</button>
+                    </h3>
+                    <UserLocation className="user-location" location={this.state.userCoords} />
+                    <h3 className="items">Do you have any of these immediately available?
+                        <select type="text" className="dropdown" ref="itemName">
+                            <option value="Car">Car</option>
+                            <option value="Bicycle">Bicycle</option>
+                            <option value="Smartphone">Smartphone</option>
+                            <option value="Radio">Radio</option>
+                            <option value="Map">Map</option>
+                            <option value="Bat">Bat</option>
+                            <option value="Water">Water</option>
+                            <option value="Food">Food</option>
+                            <option value="Sleeping Bag">Sleeping Bag</option>
+                        </select>                
+                        <button type="button" className="add" onClick={this.addItem}>Add</button>
+                    </h3>
+                    <Items className="items" items={this.state.items} />
+                    <h3 className="bat">Do you have a bat?
+                        <button type="button" className="yes">Yes</button>
+                        <button type="button" className="no">No</button>
+                    </h3>    
+                    <br></br>
+                </div>
                 <SurvivalMap className="survival-map" items={this.state.items} />
             </div>
         );

@@ -7,11 +7,11 @@ var actions = require('../actions/index');
 var Items = function(props) {
 	var itemList = props.items.map(function(item, index) {
 		return (
-			<li className="items" key={index}>{item}</li>
+			<li className="items-component" key={index}>{'>' + ' ' + item}</li>
 		)
 	});
 	return (
-		<div className="item-list">{itemList}</div>
+		<div className="items-list">{itemList}</div>
 	)
 };
 
