@@ -80,20 +80,29 @@ body {
 	width: 80%;
 }
 
-.start-moving {
-	margin-left: 10px;
+.load-map {
+	display: block;
+	margin: 0 auto;
 	margin-top: 10px;
 	border: 1px solid black;
 	border-radius: 3px;
-	font-size: 12px;
+	font-size: 18px;
 }
 
-.load-map {
-	margin-left: 10px;
+.start-moving {
+	display: block;
+	margin: 0 auto;
 	margin-top: 10px;
 	border: 1px solid black;
 	border-radius: 3px;
-	font-size: 12px;
+	font-size: 18px;
+}
+
+.escape-outcome {
+	width: 70%;
+	text-align: center;
+	font-size: 18px;
+	font-family: 'Droid Sans Mono', monospace;
 }
 
 #map {

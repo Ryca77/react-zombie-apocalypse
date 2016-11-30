@@ -10,7 +10,10 @@ var ZombieEscapeContainer = React.createClass({
     getInitialState: function() {
         return {
             userCoords: {},
-            items: []
+            items: [],
+            showItems: false,
+            showBat: false,
+            showMapContainer: false
         }
     },
 
@@ -28,6 +31,7 @@ var ZombieEscapeContainer = React.createClass({
     addUserLocation: function(event) {
         event.preventDefault();
         var userCoords = this.state.userCoords;
+        this.setState({showItems: true, showBat: true});
         this.props.dispatch(actions.getLocation(userCoords));    
     },
 
@@ -39,6 +43,14 @@ var ZombieEscapeContainer = React.createClass({
         this.props.dispatch(actions.addItem(item));
     },
 
+    yesBat: function(event) {
+        this.setState({showMapContainer: true});
+    },
+
+    noBat: function(event) {
+        this.setState({showMapContainer: true});
+    },
+
     render: function() {
         return (
             <div className="app">
@@ -48,6 +60,7 @@ var ZombieEscapeContainer = React.createClass({
                         <button type="button" className="location" onClick={this.addUserLocation}>Get My Location</button>
                     </h3>
                     <UserLocation className="user-location" location={this.state.userCoords} />
+                    {this.state.showItems &&
                     <h3 className="items">Do you have any of these immediately available?
                         <select type="text" className="dropdown" ref="itemName">
                             <option value="Car">Car</option>
@@ -61,15 +74,16 @@ var ZombieEscapeContainer = React.createClass({
                             <option value="Sleeping Bag">Sleeping Bag</option>
                         </select>                
                         <button type="button" className="add" onClick={this.addItem}>Add</button>
-                    </h3>
+                    </h3> }
                     <Items className="items" items={this.state.items} />
+                    {this.state.showBat &&
                     <h3 className="bat">Do you have a bat?
-                        <button type="button" className="yes">Yes</button>
-                        <button type="button" className="no">No</button>
-                    </h3>    
-                    <br></br>
+                        <button type="button" className="yes" onClick={this.yesBat}>Yes</button>
+                        <button type="button" className="no" onClick={this.noBat}>No</button>
+                    </h3> }
                 </div>
-                <SurvivalMap className="survival-map" items={this.state.items} />
+                {this.state.showMapContainer &&
+                <SurvivalMap className="survival-map" items={this.state.items} /> }
             </div>
         );
     }

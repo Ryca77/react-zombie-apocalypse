@@ -10,7 +10,11 @@ var SurvivalMap = React.createClass({
         return {
             userCoords: {},
             infectionCoords: {},
-            safePlaceCoords: []
+            safePlaceCoords: [],
+            locationEnabled: false,
+            showLoad: true,
+            showStart: false,
+            showOutcome: false
         }
     },
 
@@ -25,6 +29,7 @@ var SurvivalMap = React.createClass({
             var longitude = position.coords.longitude;
             var userCoords = {lat: latitude, lng: longitude};
             this.setState({userCoords: userCoords});
+            this.setState({locationEnabled: true});
         });
         //random lats and lngs - scotland, wales, west, east
     	var randomLatLng =  [
@@ -49,6 +54,8 @@ var SurvivalMap = React.createClass({
 	},
 
 	generateMap: function() {
+		this.setState({showLoad: false});
+		this.setState({showStart: true});
 		console.log(this.state.userCoords)
 		var userCoords = this.state.userCoords;
 		var infectionCoords = this.state.infectionCoords;
@@ -93,8 +100,9 @@ var SurvivalMap = React.createClass({
    		};
 	},
 
-	addEscapeOutcome: function(event) {
-		event.preventDefault();
+	addEscapeOutcome: function() {
+		this.setState({showStart: false});
+		this.setState({showOutcome: true});
 		var userCoords = this.state.userCoords;
 		var infectionCoords = this.state.infectionCoords;
 		var safePlaceCoords = this.state.safePlaceCoords;
@@ -108,15 +116,16 @@ var SurvivalMap = React.createClass({
 	render: function() {
 		return (
 			<div className="survival-map">
-				<button type="button" className="start-moving" onClick={this.addEscapeOutcome}>Start Moving!</button>
-            	<br></br>
-            	<button type="button" className="load-map" onClick={this.generateMap}>Load Map</button>
+				{this.state.locationEnabled && this.state.showLoad &&
+				<button type="button" className="load-map" onClick={this.generateMap}>LOAD MAP</button> }
+				{this.state.showStart &&
+				<button type="button" className="start-moving" onClick={this.addEscapeOutcome}>START MOVING</button> }
+				{this.state.showOutcome &&
+				<EscapeOutcome className="escape-outcome" userCoords={this.state.userCoords} infectionCoords={this.state.infectionCoords} safePlaceCoords={this.state.safePlaceCoords} /> }
 				<div className="map" id="map"></div>
-				<EscapeOutcome className="escape-outcome" userCoords={this.state.userCoords} infectionCoords={this.state.infectionCoords} safePlaceCoords={this.state.safePlaceCoords} />
 			</div>
 		);
 	}
-
 });
 
 var Container = connect()(SurvivalMap);
