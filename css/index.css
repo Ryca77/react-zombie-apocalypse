@@ -99,6 +99,7 @@ body {
 }
 
 .escape-outcome {
+	margin: 0 auto;
 	width: 70%;
 	text-align: center;
 	font-size: 18px;

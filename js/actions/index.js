@@ -227,6 +227,7 @@ var getZombieJourney = function(infection, safe) {
         		travelMode: 'DRIVING'
         	}, function(response, status) {
         		if(status === 'OK') {
+        			console.log(response);
         			console.log(response.routes[0].legs[0].duration.value);
         			var time = (response.routes[0].legs[0].duration.value);
         			//zombie travel time set at half driving time

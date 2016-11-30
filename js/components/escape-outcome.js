@@ -13,7 +13,7 @@ var EscapeOutcome = function(props) {
     	escapeOutcome = 'Congratulations, you made it to...'
     }
     else {
-    	escapeOutcome = 'Oh dear, the zombies intercepted you x miles from... you\'re one of them now'
+    	escapeOutcome = 'You need a miracle, the zombies will intercept you x miles from x'
     }
 
 	return (
