@@ -1,11 +1,3 @@
-
-//get user location, plot on map
-//get random infection point, plot on map
-//get safe points, plot nearest on map after survival outcome is displayed
-//get travel time betweem user location and nearest safe point - adjustable for car, cycle, walking
-//get travel time betweem infection point and user's nearest safe point - make slower if user has selected one or more other items
-//if outcome is failure, show total survival time and point at which overcome by infection
-
 var fetch = require('isomorphic-fetch');
 
 //add user location name

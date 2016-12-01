@@ -15,7 +15,8 @@ var SurvivalMap = React.createClass({
             showLoad: true,
             showStart: false,
             showOutcome: false,
-            showMap: true
+            showMap: true,
+            showKey: false
         }
     },
 
@@ -57,6 +58,7 @@ var SurvivalMap = React.createClass({
 	generateMap: function() {
 		this.setState({showLoad: false});
 		this.setState({showStart: true});
+		this.setState({showKey: true});
 		console.log(this.state.userCoords)
 		var userCoords = this.state.userCoords;
 		var infectionCoords = this.state.infectionCoords;
@@ -105,6 +107,7 @@ var SurvivalMap = React.createClass({
 		this.setState({showStart: false});
 		this.setState({showOutcome: true});
 		this.setState({showMap: false});
+		this.setState({showKey: false});
 		var userCoords = this.state.userCoords;
 		var infectionCoords = this.state.infectionCoords;
 		var safePlaceCoords = this.state.safePlaceCoords;
@@ -125,6 +128,11 @@ var SurvivalMap = React.createClass({
 				<button type="button" className="start-moving" onClick={this.addEscapeOutcome}>START MOVING</button> }
 				{this.state.showOutcome &&
 				<EscapeOutcome className="escape-container" userCoords={this.state.userCoords} infectionCoords={this.state.infectionCoords} safePlaceCoords={this.state.safePlaceCoords} /> }
+				{this.state.showKey &&
+				<div className="map-key">
+					<li className="infection"><img className="icon" src="/assets/images/infection-icon-30px.png"></img>Infection Breakout Point</li>
+					<li className="safe"><img className="icon" src="/assets/images/assembly-point-icon-30px.png"></img>Safe Assembly Point</li>
+				</div> }
 				{this.state.showMap &&
 				<div className="map" id="map"></div> }
 			</div>

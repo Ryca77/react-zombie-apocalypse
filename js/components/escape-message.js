@@ -11,7 +11,7 @@ var EscapeMessage = function(props) {
 	var zombieTime = (store.getState().zombieJourneyTime);
 	var nearestSafePlace = (store.getState().nearestSafePlace);
 	console.log(nearestSafePlace);
-	
+
 	//determine which safe place the user will see in their outcome
 	var safeName = null;
 	var safeImage = null;
@@ -83,8 +83,10 @@ var EscapeMessage = function(props) {
 	return (
 		<div className="escape-message">
 			<div className="message">{escapeOutcome}</div>
-			<img className="safe-image" src={safeImage}></img>
-			<img className="zombie-image" src={zombieImage}></img>
+			<div className="image-container">
+				<img className="safe-image" src={safeImage}></img>
+				<img className="zombie-image" src={zombieImage}></img>
+			</div>
 		</div>
 	)
 };

@@ -11,6 +11,7 @@ var ZombieEscapeContainer = React.createClass({
         return {
             userCoords: {},
             items: [],
+            showLocationButton: false,
             showItems: false,
             showBat: false,
             showMapContainer: false
@@ -25,6 +26,7 @@ var ZombieEscapeContainer = React.createClass({
             var userCoords = {lat: latitude, lng: longitude};
             console.log(userCoords);
             this.setState({userCoords: userCoords});
+            this.setState({showLocationButton: true});
         });
     },
 
@@ -59,11 +61,13 @@ var ZombieEscapeContainer = React.createClass({
                 <div className="escape-container">
                     <h2 className="header">The zombies are coming - will you survive?</h2>
                     <h3 className="where">Where are you?
-                        <button type="button" className="location" onClick={this.addUserLocation}>Get My Location</button>
+                        {this.state.showLocationButton &&
+                        <button type="button" className="location" onClick={this.addUserLocation}>Load My Location</button> }
                     </h3>
                     <UserLocation className="user-location" location={this.state.userCoords} />
                     {this.state.showItems &&
                     <h3 className="items">Do you have any of these immediately available?
+                        <br></br>
                         <select type="text" className="dropdown" ref="itemName">
                             <option value="Car">Car</option>
                             <option value="Bicycle">Bicycle</option>
