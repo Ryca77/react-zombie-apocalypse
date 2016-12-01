@@ -8,7 +8,8 @@ var initialItemsState = {
     nearestSafePlace: {},
     userJourneyTime: '',
     zombieJourneyTime: '',
-    items: []
+    items: [],
+    bat: false
 };
 
 var escapeReducer = function(state, action) {
@@ -24,6 +25,12 @@ var escapeReducer = function(state, action) {
         var userItems = state.items;
         userItems.push(action.item);
         return Object.assign({}, state, {items: userItems});
+    }
+
+    else if(action.type === actions.ADD_BAT) {
+        console.log(action);
+        var yesBat = action.bat;
+        return Object.assign({}, state, {bat: yesBat});
     }
 
     else if(action.type === actions.ADD_ESCAPE_DATA) {

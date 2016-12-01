@@ -44,8 +44,9 @@ var ZombieEscapeContainer = React.createClass({
     },
 
     yesBat: function(event) {
+        event.preventDefault();
         this.setState({showMapContainer: true});
-
+        this.props.dispatch(actions.addBat(true))
     },
 
     noBat: function(event) {

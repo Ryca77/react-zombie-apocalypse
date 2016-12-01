@@ -53,6 +53,14 @@ var addItem = function(item) {
 	};
 };
 
+var ADD_BAT = 'ADD_BAT';
+var addBat = function(bat) {
+	return {
+		type: ADD_BAT,
+		bat: bat
+	};
+};
+
 var ADD_ESCAPE_DATA = 'ADD_ESCAPE_DATA';
 var addEscapeData = function(user, infection, safe) {
 	return {
@@ -221,7 +229,7 @@ var addZombieJourneyTime = function(time) {
 	};
 };
 
-var getZombieJourney = function(infection, safe) {
+var getZombieJourney = function(infection, safe, bat) {
 	return function(dispatch) {
 		var infectionLat = infection.lat;
 		var infectionLng = infection.lng;		
@@ -241,24 +249,33 @@ var getZombieJourney = function(infection, safe) {
         		if(status === 'OK') {
         			console.log(response);
         			console.log(response.routes[0].legs[0].duration.value);
-        			var time = (response.routes[0].legs[0].duration.value);
         			//zombie travel time set at half driving time
-        			return dispatch(addZombieJourneyTime(time * 2));
+        			var time = ((response.routes[0].legs[0].duration.value) * 2);
         		} else {
         			window.alert('Directions request failed due to ' + status);
         		}
+        		console.log(time);
+        		if(bat == true) {
+        			console.log('yes to bat');
+        			time = time * 1.1;
+        		}
+        		console.log(time);
+        		return dispatch(addZombieJourneyTime(time));
         	});
         };
         getRouteData();
 	};
 };
 
-exports.ADD_ITEM = ADD_ITEM;
-exports.addItem = addItem;
-
 exports.ADD_USER_LOCATION = ADD_USER_LOCATION;
 exports.addUserLocation = addUserLocation;
 exports.getLocation = getLocation;
+
+exports.ADD_ITEM = ADD_ITEM;
+exports.addItem = addItem;
+
+exports.ADD_BAT = ADD_BAT;
+exports.addBat = addBat;
 
 exports.ADD_ESCAPE_DATA = ADD_ESCAPE_DATA;
 exports.addEscapeData = addEscapeData;
