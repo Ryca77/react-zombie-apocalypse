@@ -1,25 +1,31 @@
 var React = require('react');
 var connect = require('react-redux').connect;
 
+var EscapeMessage = require('./escape-message');
 var actions = require('../actions/index');
 var store = require('../store');
 
 //show user location name
-var EscapeOutcome = function(props) {
-	var escapeOutcome = null;
-	var userTime = (store.getState().userJourneyTime);
-	var zombieTime = (store.getState().zombieJourneyTime);
-    if(userTime < zombieTime) {
-    	escapeOutcome = 'Congratulations, you made it to...'
-    }
-    else {
-    	escapeOutcome = 'You need a miracle, the zombies will intercept you x miles from x'
-    }
+var EscapeOutcome = React.createClass({
+	getInitialState: function() {
+        return {
+        	timesEnabled: false
+        }
+    },
 
-	return (
-		<div className="escape-outcome">{escapeOutcome}</div>
-	)
-};
+    componentDidMount: function() {
+    	this.setState({timesEnabled: true});
+    },
+
+    render: function() {
+		return (
+			<div className="escape-outcome">
+				{this.state.timesEnabled &&
+				<EscapeMessage className="message-container" /> }
+			</div>
+		);
+	}
+});
 
 var Container = connect()(EscapeOutcome);
 

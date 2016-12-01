@@ -45,6 +45,7 @@ var ZombieEscapeContainer = React.createClass({
 
     yesBat: function(event) {
         this.setState({showMapContainer: true});
+
     },
 
     noBat: function(event) {
@@ -68,16 +69,12 @@ var ZombieEscapeContainer = React.createClass({
                             <option value="Smartphone">Smartphone</option>
                             <option value="Radio">Radio</option>
                             <option value="Map">Map</option>
-                            <option value="Bat">Bat</option>
-                            <option value="Water">Water</option>
-                            <option value="Food">Food</option>
-                            <option value="Sleeping Bag">Sleeping Bag</option>
                         </select>                
                         <button type="button" className="add" onClick={this.addItem}>Add</button>
                     </h3> }
                     <Items className="items" items={this.state.items} />
                     {this.state.showBat &&
-                    <h3 className="bat">Do you have a bat?
+                    <h3 className="bat">Do you have a cricket bat?
                         <button type="button" className="yes" onClick={this.yesBat}>Yes</button>
                         <button type="button" className="no" onClick={this.noBat}>No</button>
                     </h3> }

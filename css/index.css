@@ -98,12 +98,17 @@ body {
 	font-size: 18px;
 }
 
-.escape-outcome {
+.escape-message {
 	margin: 0 auto;
 	width: 70%;
 	text-align: center;
 	font-size: 18px;
 	font-family: 'Droid Sans Mono', monospace;
+}
+
+.message {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 #map {
@@ -115,6 +120,7 @@ body {
 
 @media only screen and (max-width: 500px) {
  	.escape-container {
+ 		width: 90%;
 		font-size: 10px;
 	}
 
@@ -125,7 +131,15 @@ body {
 	.location, .dropdown, .add, .yes, .no {
 		font-size: 10px;
 	}
-
+	.load-map, .start-moving {
+		font-size: 12px;
+	}
+	.escape-message {
+		width: 100%;
+	}
+	.message {
+		font-size: 14px;
+	}
  	#map {
  		width: 100%;
  		height: 400px;

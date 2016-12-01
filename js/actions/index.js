@@ -165,10 +165,22 @@ var getUserJourney = function(user, safe, items) {
         			else if(mode == 'DRIVING') {
         				time = time * 2
         			}
-        			return dispatch(addUserJourneyTime(time));
+        			
         		} else {
         			window.alert('Directions request failed due to ' + status);
         		}
+        		console.log(time);
+        		var itemsArr = items;
+        		for(var i = 0; i < itemsArr.length; i++) {
+        			if(itemsArr[i] == 'Smartphone' || itemsArr[i] == 'Radio' || items[i] == 'Map') {
+        				time = time * 0.9;
+        			}
+        			else {
+        				time = time;
+        			}
+        		};
+        		console.log(time);
+        		return dispatch(addUserJourneyTime(time));
         	});
         };
 

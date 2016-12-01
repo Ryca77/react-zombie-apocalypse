@@ -14,7 +14,8 @@ var SurvivalMap = React.createClass({
             locationEnabled: false,
             showLoad: true,
             showStart: false,
-            showOutcome: false
+            showOutcome: false,
+            showMap: true
         }
     },
 
@@ -36,7 +37,7 @@ var SurvivalMap = React.createClass({
     		{lat: (Math.random()*(57.468 - 54.965) + 54.965.toFixed() * 1), lng: (Math.random()*(-3.054 - -4.681) + -4.681.toFixed() * 1)},
     		{lat: (Math.random()*(53.186 - 51.713) + 51.713.toFixed() * 1), lng: (Math.random()*(-2.614 - -4.021) + -4.021.toFixed() * 1)},
     		{lat: (Math.random()*(54.495 - 50.875) + 50.875.toFixed() * 1), lng: (Math.random()*(-0.747 - -2.416) + -2.416.toFixed() * 1)},
-			{lat: (Math.random()*(52.736 - 50.972) + 50.972.toFixed() * 1), lng: (Math.random()*(-0.593 - -0.746) + -0.746.toFixed() * 1)}
+			{lat: (Math.random()*(52.736 - 50.972) + 50.972.toFixed() * 1), lng: (Math.random()*(0.593 - -0.746) + -0.746.toFixed() * 1)}
 		];
         var infectionCoords = randomLatLng[Math.floor(Math.random() * randomLatLng.length)];
         console.log(infectionCoords);
@@ -103,6 +104,7 @@ var SurvivalMap = React.createClass({
 	addEscapeOutcome: function() {
 		this.setState({showStart: false});
 		this.setState({showOutcome: true});
+		this.setState({showMap: false});
 		var userCoords = this.state.userCoords;
 		var infectionCoords = this.state.infectionCoords;
 		var safePlaceCoords = this.state.safePlaceCoords;
@@ -121,8 +123,9 @@ var SurvivalMap = React.createClass({
 				{this.state.showStart &&
 				<button type="button" className="start-moving" onClick={this.addEscapeOutcome}>START MOVING</button> }
 				{this.state.showOutcome &&
-				<EscapeOutcome className="escape-outcome" userCoords={this.state.userCoords} infectionCoords={this.state.infectionCoords} safePlaceCoords={this.state.safePlaceCoords} /> }
-				<div className="map" id="map"></div>
+				<EscapeOutcome className="escape-container" userCoords={this.state.userCoords} infectionCoords={this.state.infectionCoords} safePlaceCoords={this.state.safePlaceCoords} /> }
+				{this.state.showMap &&
+				<div className="map" id="map"></div> }
 			</div>
 		);
 	}

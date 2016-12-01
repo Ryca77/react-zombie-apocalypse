@@ -42,13 +42,13 @@ var escapeReducer = function(state, action) {
 
     else if(action.type === actions.ADD_USER_JOURNEY_TIME) {
         console.log(action);
-        var userJourneyTime = action.time;
+        var userJourneyTime = action.userJourneyTime;
         return Object.assign({}, state, {userJourneyTime: userJourneyTime});
     }
 
     else if(action.type === actions.ADD_ZOMBIE_JOURNEY_TIME) {
         console.log(action);
-        var zombieJourneyTime = action.time;
+        var zombieJourneyTime = action.zombieJourneyTime;
         return Object.assign({}, state, {zombieJourneyTime: zombieJourneyTime});
     }
 
