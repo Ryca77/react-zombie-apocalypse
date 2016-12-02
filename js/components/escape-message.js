@@ -72,10 +72,10 @@ var EscapeMessage = function(props) {
 	//determine which message and image to show the user based on their outcome
 	var zombieImage = null;
     if(userTime < zombieTime) {
-    	escapeOutcome = 'You should be fine, you\'ll make it to ' + safeName;
+    	escapeOutcome = 'Go now, you can make it to ' + safeName + ' before the zombies will get there.';
     }
     else {
-    	escapeOutcome = 'It\'s not good news, the zombies will intercept you ' + miles + 'miles from ' + safeName
+    	escapeOutcome = 'It\'s not good news, the zombies will intercept you ' + miles + 'miles from ' + safeName + '.'
     	safeImage = null;
     	zombieImage = '/assets/images/zombies-cropped-400px.png';
     }
