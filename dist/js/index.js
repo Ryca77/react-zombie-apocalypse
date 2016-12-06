@@ -32215,7 +32215,7 @@
 	      map: this.mapImage,
 	      title: 'Your Location'
 	    });
-	    var infectionIcon = '../../assets/images/infection-icon-30px.png';
+	    var infectionIcon = '/react-zombie-apocalypse/assets/images/infection-icon-30px.png';
 	    var infectionMarker = new google.maps.Marker({
 	      position: infectionCoords,
 	      map: this.mapImage,
@@ -32223,7 +32223,7 @@
 	      icon: infectionIcon,
 	      optimized: false
 	    });
-	    var safeIcon = '../../assets/images/assembly-point-icon-30px.png';
+	    var safeIcon = '/react-zombie-apocalypse/assets/images/assembly-point-icon-30px.png';
 	    for (var i = 0; i < safePlaceCoords.length; i++) {
 	      var safePlace = safePlaceCoords[i];
 	      var safeMarker = new google.maps.Marker({
@@ -32272,13 +32272,13 @@
 	        React.createElement(
 	          'li',
 	          { className: 'infection' },
-	          React.createElement('img', { className: 'icon', src: '../../assets/images/infection-icon-30px.png' }),
+	          React.createElement('img', { className: 'icon', src: '/react-zombie-apocalypse/assets/images/infection-icon-30px.png' }),
 	          'Infection Breakout Point'
 	        ),
 	        React.createElement(
 	          'li',
 	          { className: 'safe' },
-	          React.createElement('img', { className: 'icon', src: '../../assets/images/assembly-point-icon-30px.png' }),
+	          React.createElement('img', { className: 'icon', src: '/react-zombie-apocalypse/assets/images/assembly-point-icon-30px.png' }),
 	          'Safe Assembly Point'
 	        )
 	      ),
@@ -32411,7 +32411,7 @@
 		} else {
 			escapeOutcome = 'It\'s not good news, the zombies will intercept you ' + miles + 'miles from ' + safeName + '.';
 			safeImage = null;
-			zombieImage = '../../assets/images/zombies-cropped-400px.png';
+			zombieImage = '/react-zombie-apocalypse/assets/images/zombies-cropped-400px.png';
 		}
 	
 		return React.createElement(
