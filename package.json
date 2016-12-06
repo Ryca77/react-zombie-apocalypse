@@ -4,11 +4,11 @@
   "description": "A React template",
   "main": "js/index.js",
   "scripts": {
-    "start": "http-server -c-1 build dist",
+    "start": "http-server -c-1 build",
     "dev": "run-p watch serve",
     "test": "mocha --recursive --compilers js:babel-core/register",
     "build": "run-s build:*",
-    "dist": "cp /build /dist && replace '../../../' ' ../../' dist/js/index.js",
+    "dist": "cp -R /build /dist && replace '../../../' '/react-zombie-apocalypse/' dist/js/index.js",
     "clean": "rimraf build",
     "serve": "npm start",
     "watch": "run-p watch:*",
