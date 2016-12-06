@@ -24,7 +24,6 @@ var ZombieEscapeContainer = React.createClass({
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
             var userCoords = {lat: latitude, lng: longitude};
-            console.log(userCoords);
             this.setState({userCoords: userCoords});
             this.setState({showLocationButton: true});
         });
@@ -40,7 +39,6 @@ var ZombieEscapeContainer = React.createClass({
     addItem: function(event) {
         event.preventDefault();
         var item = this.refs.itemName.value;
-        console.log(item);
         this.setState({items: item});
         this.props.dispatch(actions.addItem(item));
     },

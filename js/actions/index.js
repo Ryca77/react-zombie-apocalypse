@@ -65,7 +65,6 @@ var addEscapeData = function(user, infection, safe) {
 
 var ADD_NEAREST_SAFE_PLACE = 'ADD_NEAREST_SAFE_PLACE';
 var addNearestSafePlace = function(coords) {
-	console.log(coords);
 	return {
 		type: ADD_NEAREST_SAFE_PLACE,
 		nearestSafePlace: coords
@@ -88,8 +87,6 @@ var getNearestSafePlace = function(user, safe) {
         		nearestSafeLat = safePlaceCoords[i].lat;
         	}
         }
-        console.log(nearestSafeLat);
-        console.log(diffLat);
 
         //calculate nearest safe place lng to user location
         var nearestSafeLng = null;
@@ -101,8 +98,6 @@ var getNearestSafePlace = function(user, safe) {
         		nearestSafeLng = safePlaceCoords[i].lng;
         	}
         }
-        console.log(nearestSafeLng);
-        console.log(diffLng);
 
         //determine absolute nearest safe place using smallest difference in lat or lng
         var absoluteNearest = null;
@@ -122,8 +117,7 @@ var getNearestSafePlace = function(user, safe) {
         		nearestSafeLng = safePlaceCoords[i].lng;
         	}
         }
-        console.log(nearestSafeLat);
-        console.log(nearestSafeLng);
+
         var nearestSafePlace = {lat: nearestSafeLat, lng: nearestSafeLng};
         return dispatch(addNearestSafePlace(nearestSafePlace));
 	};
@@ -155,9 +149,7 @@ var getUserJourney = function(user, safe, items) {
         		travelMode: mode
         	}, function(response, status) {
         		if(status === 'OK') {
-        			console.log(response.routes[0].legs[0].duration.value);
         			var time = (response.routes[0].legs[0].duration.value);
-        			console.log(mode);
         			//user walking time reduced to account for running, and driving time increased to account for traffic
         			if(mode == 'WALKING') {
         				time = time * 0.5
@@ -169,7 +161,6 @@ var getUserJourney = function(user, safe, items) {
         		} else {
         			window.alert('Directions request failed due to ' + status);
         		}
-        		console.log(time);
         		var itemsArr = items;
         		for(var i = 0; i < itemsArr.length; i++) {
         			if(itemsArr[i] == 'Smartphone' || itemsArr[i] == 'Radio' || items[i] == 'Map') {
@@ -179,7 +170,6 @@ var getUserJourney = function(user, safe, items) {
         				time = time;
         			}
         		};
-        		console.log(time);
         		return dispatch(addUserJourneyTime(time));
         	});
         };
@@ -214,7 +204,6 @@ var getUserJourney = function(user, safe, items) {
 
 var ADD_ZOMBIE_JOURNEY_TIME = 'ADD_ZOMBIE_JOURNEY_TIME';
 var addZombieJourneyTime = function(time) {
-	console.log(time);
 	return {
 		type: ADD_ZOMBIE_JOURNEY_TIME,
 		zombieJourneyTime: time
@@ -239,19 +228,14 @@ var getZombieJourney = function(infection, safe, bat) {
         		travelMode: 'DRIVING'
         	}, function(response, status) {
         		if(status === 'OK') {
-        			console.log(response);
-        			console.log(response.routes[0].legs[0].duration.value);
         			//zombie travel time set at half driving time
         			var time = ((response.routes[0].legs[0].duration.value) * 2);
         		} else {
         			window.alert('Directions request failed due to ' + status);
         		}
-        		console.log(time);
         		if(bat == true) {
-        			console.log('yes to bat');
         			time = time * 1.1;
         		}
-        		console.log(time);
         		return dispatch(addZombieJourneyTime(time));
         	});
         };

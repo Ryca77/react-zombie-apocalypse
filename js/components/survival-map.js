@@ -41,7 +41,6 @@ var SurvivalMap = React.createClass({
 			{lat: (Math.random()*(52.736 - 50.972) + 50.972.toFixed() * 1), lng: (Math.random()*(0.593 - -0.746) + -0.746.toFixed() * 1)}
 		];
         var infectionCoords = randomLatLng[Math.floor(Math.random() * randomLatLng.length)];
-        console.log(infectionCoords);
         this.setState({infectionCoords: infectionCoords});
         //lats and lngs for safe places
         var safePlaceCoords = [
@@ -59,7 +58,6 @@ var SurvivalMap = React.createClass({
 		this.setState({showLoad: false});
 		this.setState({showStart: true});
 		this.setState({showKey: true});
-		console.log(this.state.userCoords)
 		var userCoords = this.state.userCoords;
 		var infectionCoords = this.state.infectionCoords;
 		var safePlaceCoords = this.state.safePlaceCoords;
@@ -83,7 +81,7 @@ var SurvivalMap = React.createClass({
    			map: this.mapImage,
    			title: 'Your Location'
    		});
-   		var infectionIcon = '/assets/images/infection-icon-30px.png'
+   		var infectionIcon = '../../../assets/images/infection-icon-30px.png'
    		var infectionMarker = new google.maps.Marker({
    			position: infectionCoords,
    			map: this.mapImage,
@@ -91,7 +89,7 @@ var SurvivalMap = React.createClass({
    			icon: infectionIcon,
    			optimized: false,
    		});
-   		var safeIcon = '/assets/images/assembly-point-icon-30px.png'
+   		var safeIcon = '../../../assets/images/assembly-point-icon-30px.png'
    		for(var i = 0; i < safePlaceCoords.length; i++) {
    			var safePlace = safePlaceCoords[i];
    			var safeMarker = new google.maps.Marker({
@@ -130,8 +128,8 @@ var SurvivalMap = React.createClass({
 				<EscapeOutcome className="escape-container" userCoords={this.state.userCoords} infectionCoords={this.state.infectionCoords} safePlaceCoords={this.state.safePlaceCoords} /> }
 				{this.state.showKey &&
 				<div className="map-key">
-					<li className="infection"><img className="icon" src="/assets/images/infection-icon-30px.png"></img>Infection Breakout Point</li>
-					<li className="safe"><img className="icon" src="/assets/images/assembly-point-icon-30px.png"></img>Safe Assembly Point</li>
+					<li className="infection"><img className="icon" src="../../../assets/images/infection-icon-30px.png"></img>Infection Breakout Point</li>
+					<li className="safe"><img className="icon" src="../../../assets/images/assembly-point-icon-30px.png"></img>Safe Assembly Point</li>
 				</div> }
 				{this.state.showMap &&
 				<div className="map" id="map"></div> }

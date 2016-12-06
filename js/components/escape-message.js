@@ -10,7 +10,6 @@ var EscapeMessage = function(props) {
 	var userTime = (store.getState().userJourneyTime);
 	var zombieTime = (store.getState().zombieJourneyTime);
 	var nearestSafePlace = (store.getState().nearestSafePlace);
-	console.log(nearestSafePlace);
 
 	//determine which safe place the user will see in their outcome
 	var safeName = null;
@@ -49,11 +48,8 @@ var EscapeMessage = function(props) {
 		safeName = 'Aldershot Garrison';
 		safeImage = 'https://maps.googleapis.com/maps/api/streetview?size=' + width + 'x' + height + '&location=51.2689223,-0.7519844&heading=310.31&pitch=-0.76&key=AIzaSyAfmTsg4_4HPNsiVuWJDX-DT6fkTIKRIt4';
 	}
-	console.log(safeName);
 
 	//determine distance of interception by zombies
-	console.log(userTime);
-	console.log(zombieTime);
 	var difference = userTime - zombieTime;
 	var miles = null;
 	if(difference <= 5000) {
@@ -77,7 +73,7 @@ var EscapeMessage = function(props) {
     else {
     	escapeOutcome = 'It\'s not good news, the zombies will intercept you ' + miles + 'miles from ' + safeName + '.'
     	safeImage = null;
-    	zombieImage = '/assets/images/zombies-cropped-400px.png';
+    	zombieImage = '../../../assets/images/zombies-cropped-400px.png';
     }
 
 	return (

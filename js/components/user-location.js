@@ -6,7 +6,6 @@ var actions = require('../actions/index');
 //show user location name
 var UserLocation = function(props) {
     var userLocation ='>' + ' ' + props.userLocation;
-    console.log(props);
 
 	return (
 		<div className="location-component">{userLocation}</div>
