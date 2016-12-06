@@ -1,6 +1,6 @@
 # Will You Survive A Zombie Apocalypse?
 
-A lighthearted single page app which analyses various user inputs, their current location and a randomly generated zombie infection position in the UK, to determine whether they would make it to one of six designated safe zones before being overcome by zombies.
+A lighthearted single page app which analyses various user inputs, their current location and a randomly generated zombie infection point in the UK, to determine whether the user would make it to one of six designated safe zones before being overcome by zombies.
 
 ## User Journey
 
