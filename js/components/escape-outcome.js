@@ -17,11 +17,17 @@ var EscapeOutcome = React.createClass({
     	this.setState({timesEnabled: true});
     },
 
+    startAgain: function() {
+    	window.location.reload();
+    },
+
     render: function() {
 		return (
 			<div className="escape-outcome">
 				{this.state.timesEnabled &&
 				<EscapeMessage className="message-container" /> }
+				{this.state.timesEnabled &&
+				<button type="button" className="start-again" onClick={this.startAgain}>Start Again</button> }
 			</div>
 		);
 	}

@@ -125,7 +125,7 @@ var SurvivalMap = React.createClass({
 				{this.state.locationEnabled && this.state.showLoad &&
 				<button type="button" className="load-map" onClick={this.generateMap}>LOAD MAP</button> }
 				{this.state.showStart &&
-				<button type="button" className="start-moving" onClick={this.addEscapeOutcome}>START MOVING</button> }
+				<button type="button" className="start-moving" onClick={this.addEscapeOutcome}>LOAD PREDICTION</button> }
 				{this.state.showOutcome &&
 				<EscapeOutcome className="escape-container" userCoords={this.state.userCoords} infectionCoords={this.state.infectionCoords} safePlaceCoords={this.state.safePlaceCoords} /> }
 				{this.state.showKey &&
