@@ -191,7 +191,7 @@ body {
 	.location, .dropdown, .add, .yes, .no {
 		font-size: 10px;
 	}
-	.load-map, .start-moving {
+	.load-map, .start-moving, .start-again {
 		font-size: 12px;
 	}
 	.escape-message {
