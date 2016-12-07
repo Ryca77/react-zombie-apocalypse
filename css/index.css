@@ -55,6 +55,7 @@ body {
 	border: 1px solid black;
 	border-radius: 3px;
 	font-size: 12px;
+	background-color: lightgrey;
 }
 
 .items-component {
@@ -77,6 +78,7 @@ body {
 	border: 1px solid black;
 	border-radius: 3px;
 	font-size: 12px;
+	background-color: lightgrey;
 }
 
 .survival-map {
@@ -91,6 +93,7 @@ body {
 	border: 1px solid black;
 	border-radius: 3px;
 	font-size: 18px;
+	background-color: lightgrey;
 }
 
 .start-moving {
@@ -100,6 +103,7 @@ body {
 	border: 1px solid black;
 	border-radius: 3px;
 	font-size: 18px;
+	background-color: lightgrey;
 }
 
 .start-again {
@@ -110,6 +114,7 @@ body {
 	border: 1px solid black;
 	border-radius: 3px;
 	font-size: 18px;
+	background-color: lightgrey;
 }
 
 .escape-message {
