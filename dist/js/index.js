@@ -20198,7 +20198,7 @@
 	  // the markup. If you provide unsafe user data here they can inject
 	  // arbitrary CSS which may be problematic (I couldn't repro this):
 	  // https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
-	  // http://www.thespanner.co.uk/2007/11/26/ultimate-xss-css-injection/
+	  // http://www.thespanner.co.uk/20/react-zombie-apocalypse/ultimate-xss-css-injection/
 	  // This is not an XSS hole but instead a potential CSS injection issue
 	  // which has lead to a greater discussion about how we're going to
 	  // trust URLs moving forward. See #2115901
