@@ -29,11 +29,7 @@ body {
 	border: 1px solid black;
 	border-radius: 3px;
 	font-size: 12px;
-	-webkit-appearance: none; /*Safari/Chrome*/
-    -moz-appearance: none; /*Firefox*/
-    -ms-appearance: none; /*IE*/
-    -o-appearance: none; /*Opera*/
-    appearance: none;
+	background-color: lightgrey;
 }
 
 .location-component {
